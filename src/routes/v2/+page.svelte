@@ -1,0 +1,252 @@
+<script>
+	import { page } from '$app/stores';
+
+  // 	let navWidth = 0;
+  let navOpen = false;
+
+  function handleNav() {
+    navOpen = !navOpen;
+    // 		navWidth === 0 ? navWidth = 40 : navWidth = 0;
+  }
+
+  const hoofdstuk1 = [
+    {
+      id: 1.1,
+      name: "1.1 Humanity-centered digital designers",
+      route: "/v2",
+      hoofdstuk: 1,
+      apiId: 5
+    },
+    {
+      id: 1.2,
+      name: "1.2 Competenties",
+      route: "/v3",
+      hoofdstuk: 1,
+      apiId: 11
+    },
+    {
+      id: 1.3,
+      name: "1.3 Werkveld en maatschappij",
+      route: "/beoogde-leerresultaten/3",
+      hoofdstuk: 1,
+      apiId: 2
+    },
+    {
+      id: 1.4,
+      name: "1.4 Ontwikkelingen",
+      route: "/beoogde-leerresultaten/4",
+      hoofdstuk: 1,
+      apiId: 4
+    },
+    {
+      id: 1.5,
+      name: "1.5 Ambities en dilemma’s",
+      route: "/beoogde-leerresultaten/5",
+      hoofdstuk: 1,
+      apiId: 12
+    },
+  ];
+
+
+
+ 
+  console.log(hoofdstuk1);
+</script>
+
+<nav class="sidenav" class:open={navOpen}>
+  <button class="closebtn" on:click={handleNav}>&times;</button>
+  <a href="/">Versie 1</a>
+  <a href="/v2">Versie 2</a>
+  <a href="/v3">Versie 3</a>
+  <a href="/v4">Versie x</a>
+  <a href="/v5">Versie x</a>
+</nav>
+
+<button
+  class="hamButton"
+  class:pushMainToRight={navOpen}
+  class:change={navOpen}
+  on:click={handleNav}
+>
+  <i class="bx bx-menu-alt-left" />
+</button>
+
+<main id="main" class:pushMainToRight={navOpen}>
+  <h2>Dit is de tweede versie</h2>
+  <h3>Name: {hoofdstuk1[0].name}</h3>
+  <p>Route: {hoofdstuk1[0].route}</p>
+  <p></p>
+  
+  {#each hoofdstuk1 as paragraaf}
+    <li class:nav__item--active={$page.url.pathname === paragraaf.route}>
+      <a href={paragraaf.route} class:nav__link--active={$page.url.pathname === paragraaf.route}>
+        {paragraaf.name}
+      </a>
+    </li>
+  {/each}
+
+</main>
+
+<style>
+
+  :global(:root) {
+    --yellow: #f4e500;
+    --cream-white: #f0ebf0;
+    --cream-red: #db504c;
+    --dark-grey: #2f3135;
+    --nav-accent-color: #50545b;
+    --nav-text-grey: #8e9296;
+  }
+
+  /* NAVIGATION */
+  .sidenav {
+    height: 100vh;
+    max-width: 400px;
+    width: 100%;
+
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+
+    background-color: #2f3135;
+
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px;
+
+    transition: 0.3s;
+    transform: translate3d(-400px, 0, 0);
+  }
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+
+  }
+
+
+  /* Hamburger Menu icon */
+  .hamButton {
+    position: absolute;
+    left: 20px;
+    display: inline-block;
+    cursor: pointer;
+    z-index: 2;
+    font-size: 2.5em;
+    transition: 0.3s;
+  }
+
+  /* The navigation menu links */
+  .sidenav a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  /* When you mouse over the navigation links, change their color */
+  /* Position and style the close button (top right corner) */
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: all 0.3s;
+    padding: 20px;
+  }
+
+  .pushMainToRight {
+    position: absolute;
+    transform: translate3d(400px, 0, 0);
+  }
+
+  .open {
+    transform: translate3d(0px, 0, 0);
+  }
+
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  :global(.flex) {
+    display: flex;
+  }
+
+  /* OUDE CODE */
+  .nav__icon--wrapper {
+    background-color: var(--yellow);
+    min-width: 72px;
+    max-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav__icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    border-radius: 50%;
+    margin-bottom: 1em;
+  }
+  .nav__icon:first-child {
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+  .nav__icon i {
+    font-size: 2.5em;
+    color: #f0ebf0;
+  }
+  .nav__diveder {
+    height: 2px;
+    width: 32px;
+    border-radius: 5px;
+    background-color: #000;
+    margin-bottom: 1em;
+  }
+  .nav__link--wrapper {
+    background-color: var(--dark-grey);
+    width: calc(400px - 72px);
+  }
+
+  .nav__header {
+    background-color: var(--yellow);
+    padding-left: 1em;
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }
+
+  .nav__list {
+    padding: 1em;
+  }
+
+  .nav__item {
+    margin-bottom: 1em;
+    padding: 2px 4px;
+  }
+  .nav__link {
+    color: var(--nav-text-grey);
+    font-size: 22px;
+  }
+  .nav__item--active {
+    background-color: var(--nav-accent-color);
+    border-radius: 3px;
+  }
+  .nav__link--active {
+    color: #fff;
+  }
+</style>
