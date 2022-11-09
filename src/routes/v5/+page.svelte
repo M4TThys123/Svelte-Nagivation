@@ -207,10 +207,10 @@
   <h2>Dit is de vierde versie</h2>
 
   <section class="button__wrapper">
-    <button  class="button__active" on:click={navButtonEen}>H1</button>
-    <button on:click={navButtonTwee}>H2</button>
-    <button on:click={navButtonDrie}>H3</button>
-    <button on:click={navButtonVier}>H4</button>
+    <button on:click={navButtonEen} class:button__active={navHoofdstuk == hoofdstuk1}>H1</button>
+    <button on:click={navButtonTwee} class:button__active={navHoofdstuk == hoofdstuk2}>H2</button>
+    <button on:click={navButtonDrie} class:button__active={navHoofdstuk == hoofdstuk3}>H3</button>
+    <button on:click={navButtonVier} class:button__active={navHoofdstuk == hoofdstuk4}>H4</button>
   </section>
 
   {#each navHoofdstuk as paragraaf}
@@ -229,12 +229,7 @@
   .button__wrapper button {
     background-color: var(--nav-text-grey);
     padding: 0.5em 1em;
-    color: var(--cream-white);
-  }
-
-  .button__active {
-    font-weight: bold;
-    background-color: red;
+    /* color: var(--cream-white); */
   }
 
   :global(:root) {
@@ -395,5 +390,11 @@
   }
   .nav__link--active {
     color: #fff;
+  }
+
+
+  .button__active {
+    font-weight: bold;
+    color: var(--cream-red);
   }
 </style>
